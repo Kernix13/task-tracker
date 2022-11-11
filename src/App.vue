@@ -1,7 +1,10 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker" />
-    <AddTask @add-task="addTask" />
+    <!-- <Header @toggle-add-task="toggleAddTask" title="Task Tracker" /> -->
+    <Header @toggle-add-task="toggleAddTask" title="Task Tracker" :showAddTask="showAddTask" />
+    <div v-show="showAddTask">
+      <AddTask @add-task="addTask" :showAddTask="showAddTask" />
+    </div>
     <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks" />
   </div>
 </template>
@@ -20,10 +23,14 @@ export default {
   },
   data() {
     return {
-      tasks: []
+      tasks: [],
+      showAddTask: false,
     };
   },
   methods: {
+    toggleAddTask() {
+      this.showAddTask = !this.showAddTask
+    },
     addTask(task) {
       this.tasks = [...this.tasks, task]
     },
@@ -63,6 +70,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
 *,
 *::before,
 *::after {
@@ -70,10 +78,12 @@ export default {
   margin: 0;
   padding: 0;
 }
+
 body {
   font-family: 'Poppins', sans-serif;
   color: #333;
 }
+
 .container {
   max-width: 500px;
   margin: 30px auto;
@@ -83,6 +93,7 @@ body {
   padding: 30px;
   border-radius: 5px;
 }
+
 .btn {
   display: inline-block;
   background: #000;
@@ -96,12 +107,15 @@ body {
   font-size: 15px;
   font-family: inherit;
 }
+
 .btn:focus {
   outline: none;
 }
+
 .btn:active {
   transform: scale(0.98);
 }
+
 .btn-block {
   display: block;
   width: 100%;
@@ -111,20 +125,24 @@ body {
   color: red;
   cursor: pointer;
 }
+
 .task {
   background: #f4f4f4;
   margin: 10px;
   padding: 0.75em;
   border: 1px solid #888;
 }
+
 .task.reminder {
   border-left: 5px solid green;
 }
+
 .task h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 /* .task .fas {
   display: inline-block;
   text-align: right;
