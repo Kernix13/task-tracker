@@ -31,16 +31,43 @@ export default {
     toggleAddTask() {
       this.showAddTask = !this.showAddTask
     },
-    addTask(task) {
-      this.tasks = [...this.tasks, task]
+    async addTask(task) {
+      const response = await fetch('api/tasks', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'apllication/json'
+        },
+        body: JSON.stringify(task)
+      })
+
+      const data = await response.json();
+
+      this.tasks = [...this.tasks, data];
     },
-    deleteTask(id) {
+    async deleteTask(id) {
       if (confirm('Are you sure?')) {
-        this.tasks = this.tasks.filter(task => task.id !== id);
+        const response = fetch(`api/tasks/${id}`, {
+          method: 'DELETE'
+        })
+
+        response.status === 200 ? (this.tasks = this.tasks.filter(task => task.id !== id)) : alert('Error deleting task')
+
+
       }
     },
-    toggleReminder(id) {
-      this.tasks = this.tasks.map(task => (task.id === id ? { ...task, reminder: !task.reminder } : task));
+    async toggleReminder(id) {
+      const taskToToggle = await this.fetchTask(id)
+      const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder }
+
+      const response = await fetch(`api/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify(updTask)
+      })
+      const data = await response.json()
+      this.tasks = this.tasks.map(task => (task.id === id ? { ...task, reminder: data.reminder } : task));
     },
     async fetchTasks() {
       const response = await fetch('api/tasks');

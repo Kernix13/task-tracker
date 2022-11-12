@@ -6,12 +6,7 @@
     </div>
     <div class="form-control">
       <label>Day & Time</label>
-      <input
-        type="text"
-        v-model="day"
-        name="day"
-        placeholder="Add Day & Time"
-      />
+      <input type="text" v-model="day" name="day" placeholder="Add Day & Time" />
     </div>
     <div class="form-control form-control-check">
       <label>Set Reminder</label>
@@ -58,12 +53,15 @@ export default {
 .add-form {
   margin-bottom: 40px;
 }
+
 .form-control {
   margin: 20px 0;
 }
+
 .form-control label {
   display: block;
 }
+
 .form-control input {
   width: 100%;
   height: 40px;
@@ -71,14 +69,17 @@ export default {
   padding: 3px 7px;
   font-size: 17px;
 }
+
 .form-control-check {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .form-control-check label {
   flex: 1;
 }
+
 .form-control-check input {
   flex: 2;
   height: 20px;
