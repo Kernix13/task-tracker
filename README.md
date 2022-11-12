@@ -4,6 +4,8 @@ Crash course from Brad Traversy. I am pushing the files even though I wan tto go
 
 I'm calling it because trying to run a server and a backend is killing my computer. I'm going to push when before and after he refactors the code.
 
+> NOT WORKING - check his code becasue the tasks are not being loading on the page or in db.json and delete doesn't work
+
 ## Project setup
 ```
 npm install
